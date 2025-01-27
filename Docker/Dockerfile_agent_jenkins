@@ -1,0 +1,16 @@
+FROM alpine:latest
+
+# installation paquets
+RUN apk add openssh openjdk17 git gcc make libc-dev cunit-dev cppcheck python3 py3-pytest py3-pylint
+
+# un script pour générer des clefs ssh 
+COPY agent_ssh.sh /usr/bin/
+
+# creation et configuration compte jenkins
+RUN chmod +x /usr/bin/agent_ssh.sh && rm -rf /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_dsa_key && \
+adduser -D jenkins && echo "jenkins:jenkins" | chpasswd && mkdir /home/jenkins/agent && \
+chown jenkins /home/jenkins/agent
+
+EXPOSE 22
+ENTRYPOINT ["agent_ssh.sh"]
+CMD ["/usr/sbin/sshd", "-D"]

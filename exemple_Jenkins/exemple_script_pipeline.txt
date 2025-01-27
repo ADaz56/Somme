@@ -1,0 +1,34 @@
+pipeline {
+    agent {
+        node {
+            label 'agent'
+        }
+    }
+    triggers {
+        pollSCM('H/2 8-19 * * 1-5')
+    }
+    stages {
+        stage('Téléchargement des sources') {
+            steps {
+                  git branch: 'main', url: 'https://github.com/<nom_compte>/<nom_depot>.git'
+            }
+        }
+        stage('Compilation des sources') {
+            steps {
+                sh 'cd C && make build'
+            }
+        }
+        stage('Vérification dynamique') {
+            steps {
+                sh 'cd C && make testsuite'
+                sh 'cd Python && make testsuite'
+            }
+        }
+        stage('Analyse statique') {
+            steps {
+                sh 'cd C && make analyse'
+                sh 'cd Python && make analyse'
+            }
+        }
+    }
+}
