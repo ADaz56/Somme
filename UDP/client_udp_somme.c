@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 
-// Prototype de la fonction traiter_commande
-void traiter_commande(int condition, const char* prog_name, const char* usage_msg);
 
 int main(int argc, char** argv) {
     // Vérifier si le nombre correct d'arguments est fourni
