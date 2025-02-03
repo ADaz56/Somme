@@ -8,11 +8,14 @@
 #include <netinet/in.h>
 
 int main(int argc, char** argv) {
-	//traiter_commande(/*A COMPLETER*/, argv[0], "<port>\nmauvais nombre d'arguments");
-	//traiter_commande(/*A COMPLETER*/, argv[0], "<port>\n<port> est un port non réservé");
+    traiter_commande(argc == 2, argv[0], "<port>\nmauvais nombre d'arguments");
+    traiter_commande(est_nombre(argv[1]), argv[0], "<port>\n<port> doit être un nombre");
 
-	/*A COMPLETER*/
+    int port = atoi(argv[1]);
 
-	exit(0);
+    traiter_commande(port > 1024, argv[0], "<port>\n<port> est un port non réservé");
+    
+
+   
+    exit(0);
 }
-
