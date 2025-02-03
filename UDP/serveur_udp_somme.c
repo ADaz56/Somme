@@ -9,7 +9,7 @@
 
 int main(int argc, char** argv) {
     traiter_commande(argc == 2, argv[0], "<port>\nmauvais nombre d'arguments");
-    traiter_commande(est_nombre(argv[1]), argv[0], "<port>\n<port> doit être un nombre");
+    traiter_commande(est_un_nombre(argv[1]), argv[0], "<port>\n<port> doit être un nombre");
 
     int port = atoi(argv[1]);
 
